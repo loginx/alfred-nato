@@ -148,17 +148,22 @@
 	<key>readme</key>
 	<string>## Usage
 
-Type `nato` followed by text. Enter copies the NATO spelling.
+Spell text out in the NATO phonetic alphabet via the `nato` keyword.
 
-## Modifiers
+![Spelling a query as it is typed](images/demo.gif)
 
-* ⌘ Case-marked: UPPER for capitals, lower otherwise
-* ⌥ One character per line (H – Hotel)
-* ⌘L Show in Large Type
+* &lt;kbd&gt;↩&lt;/kbd&gt; Copy the spelling.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt; Copy with case marked: `hotel INDIA`.
+* &lt;kbd&gt;⌥&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt; Copy one character per line: `H – Hotel`.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;L&lt;/kbd&gt; Show in Large Type.
 
-## Hotkey
+Configure the Hotkey to spell out selected text from any application.
 
-Set the Hotkey to spell out selected text from any application.</string>
+Choose between a single result, one result per character, or both in the Workflow's Configuration.
+
+![One result](images/layout-sequence.png)
+
+![One result per character](images/layout-perchar.png)</string>
 	<key>uidata</key>
 	<dict>
 		<key>CD7BD93C-CFFF-43D3-94A8-24B9A337FEA9</key>

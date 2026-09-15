@@ -6,7 +6,7 @@ test:
 	./test.sh
 
 icons:
-	./icons.sh
+	scripts/icons.sh
 
 alfredworkflow: test icons
 	rm -f $(WORKFLOW)

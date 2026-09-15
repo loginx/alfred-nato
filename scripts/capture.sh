@@ -2,13 +2,13 @@
 # Regenerate README media from the installed workflow: one PNG per layout, plus a GIF of a query being typed.
 # Captures Alfred's window by id, so nothing else is in frame. Needs Screen Recording permission for the terminal.
 set -e
-OUT=$(cd "$(dirname "$0")" && pwd); F=$(mktemp -d)
+OUT=$(cd "$(dirname "$0")/../images" && pwd); F=$(mktemp -d)
 ALFRED='tell application id "com.runningwithcrayons.Alfred"'
 Q='Hello 42'
 layout() { osascript -e "$ALFRED to set configuration \"layout\" to value \"$1\" in workflow \"com.loginx.utils.nato\" exportable false"; }
 show()   { osascript -e "$ALFRED to search \"nato $1\""; sleep 1; }
 hide()   { osascript -e 'tell application "System Events" to key code 53'; sleep 0.5; }
-shot()   { screencapture -x -o -l "$(osascript -l JavaScript "$OUT/alfred-window.js")" "$1"; }
+shot()   { screencapture -x -o -l "$(osascript -l JavaScript "$(dirname "$0")/alfred-window.js")" "$1"; }
 
 for l in sequence perchar; do
   layout $l; show "$Q"; shot "$OUT/layout-$l.png"; hide

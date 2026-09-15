@@ -1,29 +1,23 @@
 # NATO Spell
 
-Spell any string out in the NATO phonetic alphabet from Alfred.
-
-![Typing a query](docs/demo.gif)
-
 ## Usage
 
-`nato hi 2` → `Hotel India Space Two`. Enter copies the result.
+Spell text out in the NATO phonetic alphabet via the `nato` keyword.
 
-* <kbd>⌘</kbd> Case-marked: `hotel INDIA` (UPPER for capitals)
-* <kbd>⌥</kbd> One character per line: `H – Hotel`
-* <kbd>⌘</kbd><kbd>L</kbd> Large Type
+![Spelling a query as it is typed](images/demo.gif)
 
-Set the Hotkey to spell out selected text from any application.
+* <kbd>↩</kbd> Copy the spelling.
+* <kbd>⌘</kbd><kbd>↩</kbd> Copy with case marked: `hotel INDIA`.
+* <kbd>⌥</kbd><kbd>↩</kbd> Copy one character per line: `H – Hotel`.
+* <kbd>⌘</kbd><kbd>L</kbd> Show in Large Type.
 
-## Settings
+Configure the Hotkey to spell out selected text from any application.
 
-| Setting | Default | Description |
-|---|---|---|
-| Keyword | `nato` | Trigger keyword |
-| Layout | One string | One string, one result per character, or both (full string first) |
+Choose between a single result, one result per character, or both in the Workflow's Configuration.
 
-| One string | One result per character |
-|---|---|
-| ![](docs/layout-sequence.png) | ![](docs/layout-perchar.png) |
+![One result](images/layout-sequence.png)
+
+![One result per character](images/layout-perchar.png)
 
 ## Install
 
@@ -37,5 +31,5 @@ PR titles follow [Conventional Commits](https://www.conventionalcommits.org) and
 
 ```bash
 make alfredworkflow   # bundle
-docs/capture.sh       # regenerate README media from the installed workflow
+scripts/capture.sh    # regenerate README images from the installed workflow
 ```
