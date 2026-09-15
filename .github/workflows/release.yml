@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      created: ${{ steps.rp.outputs.release_created }}
+      tag: ${{ steps.rp.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: rp
+
+  upload:
+    needs: release-please
+    if: needs.release-please.outputs.created == 'true'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install imagemagick
+      - run: make alfredworkflow
+      - run: gh release upload "$TAG" NATO.alfredworkflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.release-please.outputs.tag }}

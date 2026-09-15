@@ -1,0 +1,6 @@
+*.alfredworkflow
+prefs.plist
+.DS_Store
+icons/
+CLAUDE.md
+.claude/
