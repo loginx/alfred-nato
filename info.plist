@@ -251,7 +251,7 @@ Built with the help of Claude Code, an AI coding tool, and tested by hand.</stri
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.0.0</string> <!-- x-release-please-version -->
+	<string>1.0.1</string> <!-- x-release-please-version -->
 	<key>webaddress</key>
 	<string>https://github.com/loginx/alfred-nato</string>
 </dict>
