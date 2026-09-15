@@ -23,7 +23,7 @@ Built with the help of Claude Code, an AI coding tool, and tested by hand.
 
 ## Install
 
-Download `NATO.alfredworkflow` from Releases and double-click. No runtime dependencies: the script filter runs on macOS's built-in JavaScript for Automation.
+Download `NATO.alfredworkflow` from Releases and double-click. Requires Alfred 5 on macOS 10.14 Mojave or later. No runtime dependencies: the script filter runs on macOS's built-in JavaScript for Automation.
 
 ## Contributing
 
