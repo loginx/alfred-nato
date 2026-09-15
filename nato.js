@@ -11,8 +11,11 @@ const glyph = c => {
   return { c, w: SYMBOLS[c] || c };
 };
 
-// NFD splits accented letters into base letter + combining mark; dropping the marks spells "é" as Echo.
-const spell = s => [...s.normalize('NFD')].filter(c => !/[̀-ͯ]/.test(c)).map(glyph);
+// Split into user-perceived characters. NFKD decomposes accents, ligatures and enclosed forms, so "é" spells as
+// Echo and "ﬁ" as Foxtrot India. Intl.Segmenter (macOS 11+) keeps emoji with modifiers or flags whole; older
+// systems fall back to code points.
+const segment = s => typeof Intl.Segmenter === 'function' ? Array.from(new Intl.Segmenter().segment(s), x => x.segment) : [...s];
+const spell = s => segment(s.replace(/\r\n?/g, '\n').normalize('NFKD').replace(/\p{M}/gu, '')).map(glyph);
 
 // Each variant is one output shape; the first is the default, the rest hang off modifier keys.
 const VARIANTS = [
