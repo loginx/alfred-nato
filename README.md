@@ -2,6 +2,8 @@
 
 Spell any string out in the NATO phonetic alphabet from Alfred.
 
+![Typing a query](docs/demo.gif)
+
 ## Usage
 
 `nato hi 2` → `Hotel India Space Two`. Enter copies the result.
@@ -19,6 +21,10 @@ Set the Hotkey to spell out selected text from any application.
 | Keyword | `nato` | Trigger keyword |
 | Layout | One string | One string, one result per character, or both (full string first) |
 
+| One string | One result per character |
+|---|---|
+| ![](docs/layout-sequence.png) | ![](docs/layout-perchar.png) |
+
 ## Install
 
 Download `NATO.alfredworkflow` from Releases and double-click. No runtime dependencies: the script filter runs on macOS's built-in JavaScript for Automation.
@@ -30,5 +36,6 @@ PR titles follow [Conventional Commits](https://www.conventionalcommits.org) and
 ## Build
 
 ```bash
-make alfredworkflow
+make alfredworkflow   # bundle
+docs/capture.sh       # regenerate README media from the installed workflow
 ```
