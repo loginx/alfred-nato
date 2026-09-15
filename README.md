@@ -19,6 +19,8 @@ Choose between a single result, one result per character, or both in the Workflo
 
 ![One result per character](images/layout-perchar.png)
 
+Built with the help of Claude Code, an AI coding tool, and tested by hand.
+
 ## Install
 
 Download `NATO.alfredworkflow` from Releases and double-click. No runtime dependencies: the script filter runs on macOS's built-in JavaScript for Automation.
