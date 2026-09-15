@@ -1,21 +1,18 @@
 #!/usr/bin/osascript -l JavaScript
-ObjC.import('Foundation');
-// Alfred script filter: string -> NATO phonetic sequence. Runs under osascript -l JavaScript.
+// Alfred script filter: string -> NATO phonetic sequence. Runs on macOS's built-in JavaScript for Automation (macOS 10.14+).
 const LETTERS = 'Alfa Bravo Charlie Delta Echo Foxtrot Golf Hotel India Juliett Kilo Lima Mike November Oscar Papa Quebec Romeo Sierra Tango Uniform Victor Whiskey X-ray Yankee Zulu'.split(' ');
 const DIGITS = 'Zero One Two Three Four Five Six Seven Eight Nine'.split(' ');
-const SYMBOLS = { ' ': 'Space', '-': 'Dash', '_': 'Underscore', '.': 'Dot', ',': 'Comma', '/': 'Slash', '\\': 'Backslash', '@': 'At', '#': 'Hash', '!': 'Bang', '?': 'Question', ':': 'Colon', ';': 'Semicolon', '+': 'Plus', '=': 'Equals', '*': 'Star', '&': 'Ampersand', '$': 'Dollar', '%': 'Percent', '(': 'Open-paren', ')': 'Close-paren', "'": 'Quote', '"': 'Double-quote' };
+const SYMBOLS = { ' ': 'Space', '\n': 'Newline', '\t': 'Tab', '-': 'Dash', '_': 'Underscore', '.': 'Dot', ',': 'Comma', '/': 'Slash', '\\': 'Backslash', '@': 'At', '#': 'Hash', '!': 'Bang', '?': 'Question', ':': 'Colon', ';': 'Semicolon', '+': 'Plus', '=': 'Equals', '*': 'Star', '&': 'Ampersand', '$': 'Dollar', '%': 'Percent', '(': 'Open-paren', ')': 'Close-paren', "'": 'Quote', '"': 'Double-quote' };
 
-const word = c => {
-  const u = c.toUpperCase();
-  if (u >= 'A' && u <= 'Z') return LETTERS[u.charCodeAt(0) - 65];
-  if (c >= '0' && c <= '9') return DIGITS[+c];
-  return SYMBOLS[c] || c;
+// One record per character: the source char, its code word, and (letters and digits only) a glyph icon from icons/.
+const glyph = c => {
+  if (/[A-Za-z]/.test(c)) return { c, w: LETTERS[c.toUpperCase().charCodeAt(0) - 65], i: `${c === c.toLowerCase() ? 'lower' : 'upper'}-${c}` };
+  if (/[0-9]/.test(c)) return { c, w: DIGITS[+c], i: `digit-${c}` };
+  return { c, w: SYMBOLS[c] || c };
 };
 
-// Letters and digits get a glyph icon from icons/; anything else falls back to the workflow icon.
-const icon = c => /[A-Z]/.test(c) ? `upper-${c}` : /[a-z]/.test(c) ? `lower-${c}` : /[0-9]/.test(c) ? `digit-${c}` : null;
-
-const spell = s => [...s].map(c => ({ c, w: word(c), i: icon(c) }));
+// NFD splits accented letters into base letter + combining mark; dropping the marks spells "é" as Echo.
+const spell = s => [...s.normalize('NFD')].filter(c => !/[̀-ͯ]/.test(c)).map(glyph);
 
 // Each variant is one output shape; the first is the default, the rest hang off modifier keys.
 const VARIANTS = [
@@ -27,15 +24,17 @@ const VARIANTS = [
 const item = p => {
   const [main, ...mods] = VARIANTS.map(v => ({ ...v, arg: v.fmt(p) }));
   const i = p.length === 1 && p[0].i;
-  return {
+  const out = {
     ...(i && { icon: { path: `icons/${i}.png` } }),
     title: main.arg || 'Type text to spell out',
     subtitle: p.map(x => x.c).join(''),
     arg: main.arg,
     valid: p.length > 0,
     text: { copy: main.arg, largetype: main.arg },
-    mods: Object.fromEntries(mods.map(m => [m.key, { arg: m.arg, subtitle: m.sub }])),
+    mods: {},
   };
+  for (const m of mods) out.mods[m.key] = { arg: m.arg, subtitle: m.sub };
+  return out;
 };
 
 // Result layout, chosen in the workflow's configuration.
