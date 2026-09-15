@@ -163,7 +163,9 @@ Choose between a single result, one result per character, or both in the Workflo
 
 ![One result](images/layout-sequence.png)
 
-![One result per character](images/layout-perchar.png)</string>
+![One result per character](images/layout-perchar.png)
+
+Built with the help of Claude Code, an AI coding tool, and tested by hand.</string>
 	<key>uidata</key>
 	<dict>
 		<key>CD7BD93C-CFFF-43D3-94A8-24B9A337FEA9</key>
